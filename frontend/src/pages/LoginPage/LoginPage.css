@@ -1,0 +1,195 @@
+/* LoginPage.css - BTS Global Bank Login Page Styles */
+
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(135deg, var(--color-navy) 0%, var(--color-s01) 50%, var(--color-s02) 100%);
+  padding: var(--spacing-lg) 0;
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 70vh;
+}
+
+.login-card {
+  background-color: var(--color-white);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: var(--spacing-xxl);
+  width: 100%;
+  max-width: 400px;
+  position: relative;
+}
+
+.login-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--color-action), var(--color-s05));
+  border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
+}
+
+.login-header {
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
+}
+
+.login-title {
+  font-size: 2rem;
+  font-weight: var(--font-weight-extrabold);
+  color: var(--color-navy);
+  margin-bottom: var(--spacing-sm);
+}
+
+.login-subtitle {
+  color: var(--color-s04);
+  font-size: 1rem;
+  margin-bottom: 0;
+}
+
+.login-form {
+  margin-bottom: var(--spacing-lg);
+}
+
+.error-message {
+  background-color: #FEE2E2;
+  color: #991B1B;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--border-radius-md);
+  margin-bottom: var(--spacing-md);
+  font-size: 0.875rem;
+  border: 1px solid #FECACA;
+}
+
+.form-group {
+  margin-bottom: var(--spacing-lg);
+}
+
+.form-label {
+  display: block;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-navy);
+  margin-bottom: var(--spacing-xs);
+  font-size: 0.875rem;
+}
+
+.form-control {
+  width: 100%;
+  padding: var(--spacing-md);
+  border: 2px solid var(--color-s06);
+  border-radius: var(--border-radius-md);
+  font-size: 1rem;
+  transition: all var(--transition-fast);
+  background-color: var(--color-white);
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--color-action);
+  box-shadow: 0 0 0 3px rgba(24, 90, 180, 0.1);
+}
+
+.form-control::placeholder {
+  color: var(--color-s04);
+}
+
+.btn-lg {
+  width: 100%;
+  padding: var(--spacing-md) var(--spacing-lg);
+  font-size: 1rem;
+  font-weight: var(--font-weight-medium);
+  border-radius: var(--border-radius-md);
+  transition: all var(--transition-fast);
+  margin-top: var(--spacing-md);
+}
+
+.btn-primary {
+  background-color: var(--color-action);
+  color: var(--color-white);
+  border: 2px solid var(--color-action);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: var(--color-s03);
+  border-color: var(--color-s03);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.login-footer {
+  text-align: center;
+  padding-top: var(--spacing-lg);
+  border-top: 1px solid var(--color-s06);
+}
+
+.login-footer p {
+  color: var(--color-s04);
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+.login-link {
+  color: var(--color-action);
+  text-decoration: none;
+  font-weight: var(--font-weight-medium);
+  transition: color var(--transition-fast);
+}
+
+.login-link:hover {
+  color: var(--color-s03);
+  text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  .login-card {
+    margin: var(--spacing-md);
+    padding: var(--spacing-lg);
+  }
+  
+  .login-title {
+    font-size: 1.75rem;
+  }
+  
+  .login-subtitle {
+    font-size: 0.875rem;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .form-control {
+    border-width: 3px;
+  }
+  
+  .error-message {
+    border-width: 2px;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .btn-primary:hover:not(:disabled) {
+    transform: none;
+  }
+  
+  .form-control,
+  .btn-lg,
+  .login-link {
+    transition: none;
+  }
+}
+

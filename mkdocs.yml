@@ -1,20 +1,20 @@
-site_name: ONBOARDING - Digital KYC Platform
-site_description: Comprehensive documentation for the ONBOARDING digital KYC platform
-site_author: ONBOARDING Team
-site_url: https://onboarding-team.github.io/onboarding/
+site_name: BTS Global Bank - Digital KYC Platform
+site_description: Secure, efficient, and compliant digital KYC platform for global banking solutions
+site_author: BTS Development Team
+site_url: https://docs.btsglobalbank.com
 
 # Repository
-repo_name: onboarding-team/onboarding
-repo_url: https://github.com/onboarding-team/onboarding
+repo_name: carlossilvatbh/onboarding-platform
+repo_url: https://github.com/carlossilvatbh/onboarding-platform
 edit_uri: edit/main/docs/
 
 # Copyright
-copyright: Copyright &copy; 2025 ONBOARDING Team
+copyright: Copyright &copy; 2025 BTS Global Bank. All rights reserved.
 
 # Configuration
 theme:
   name: material
-  language: en
+  custom_dir: overrides
   palette:
     # Palette toggle for light mode
     - scheme: default
@@ -30,46 +30,31 @@ theme:
       toggle:
         icon: material/brightness-4
         name: Switch to light mode
-  
   font:
-    text: Roboto
-    code: Roboto Mono
-  
+    text: Inter
+    code: JetBrains Mono
   features:
     - navigation.tabs
-    - navigation.tabs.sticky
     - navigation.sections
     - navigation.expand
     - navigation.path
-    - navigation.indexes
-    - toc.follow
-    - toc.integrate
-    - search.suggest
+    - navigation.top
     - search.highlight
     - search.share
-    - header.autohide
     - content.code.copy
-    - content.code.annotate
-    - content.tabs.link
-    - content.tooltips
     - content.action.edit
     - content.action.view
-  
-  icon:
-    repo: fontawesome/brands/github
-    edit: material/pencil
-    view: material/eye
+  logo: assets/bts-logo.png
+  favicon: assets/favicon.ico
 
 # Plugins
 plugins:
   - search:
       lang: en
   - git-revision-date-localized:
-      enable_creation_date: true
+      type: date
   - minify:
       minify_html: true
-  - social
-  - tags
 
 # Extensions
 markdown_extensions:
@@ -92,14 +77,12 @@ markdown_extensions:
       emoji_index: !!python/name:materialx.emoji.twemoji
   - pymdownx.highlight:
       anchor_linenums: true
-      line_spans: __span
-      pygments_lang_class: true
   - pymdownx.inlinehilite
   - pymdownx.keys
   - pymdownx.magiclink:
       repo_url_shorthand: true
-      user: onboarding-team
-      repo: onboarding
+      user: carlossilvatbh
+      repo: onboarding-platform
   - pymdownx.mark
   - pymdownx.smartsymbols
   - pymdownx.superfences:
@@ -113,22 +96,67 @@ markdown_extensions:
       custom_checkbox: true
   - pymdownx.tilde
 
+# Page tree
+nav:
+  - Home: index.md
+  - Getting Started:
+    - Overview: getting-started/index.md
+    - Installation: getting-started/installation.md
+    - Configuration: getting-started/configuration.md
+    - Quick Start: getting-started/quick-start.md
+  - Architecture:
+    - Overview: architecture/index.md
+    - Backend: architecture/backend.md
+    - Frontend: architecture/frontend.md
+    - Database: architecture/database.md
+    - Security: architecture/security.md
+  - API Reference:
+    - Overview: api/index.md
+    - Authentication: api/authentication.md
+    - KYC Endpoints: api/kyc.md
+    - UBO Endpoints: api/ubo.md
+    - PEP Endpoints: api/pep.md
+    - Documents: api/documents.md
+  - Development:
+    - Setup: development/setup.md
+    - Testing: development/testing.md
+    - Contributing: development/contributing.md
+    - Code Style: development/code-style.md
+  - Deployment:
+    - Overview: deployment/index.md
+    - Railway.app: deployment/railway.md
+    - Docker: deployment/docker.md
+    - Environment Variables: deployment/environment.md
+  - User Guide:
+    - Getting Started: user-guide/getting-started.md
+    - KYC Process: user-guide/kyc-process.md
+    - Document Upload: user-guide/document-upload.md
+    - Troubleshooting: user-guide/troubleshooting.md
+  - Security:
+    - Overview: security/index.md
+    - Authentication: security/authentication.md
+    - Data Protection: security/data-protection.md
+    - Compliance: security/compliance.md
+  - Reference:
+    - Configuration: reference/configuration.md
+    - Error Codes: reference/error-codes.md
+    - Changelog: reference/changelog.md
+    - FAQ: reference/faq.md
+
 # Extra
 extra:
-  version:
-    provider: mike
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/onboarding-team/onboarding
-    - icon: fontawesome/brands/docker
-      link: https://hub.docker.com/r/onboarding/platform
-  tags:
-    Django: django
-    API: api
-    Frontend: frontend
-    Security: security
-    Testing: testing
-    Deploy: deploy
+      link: https://github.com/carlossilvatbh/onboarding-platform
+    - icon: fontawesome/brands/linkedin
+      link: https://linkedin.com/company/bts-global-bank
+    - icon: fontawesome/solid/globe
+      link: https://btsglobalbank.com
+  version:
+    provider: mike
+  analytics:
+    provider: google
+    property: G-XXXXXXXXXX
 
 # Extra CSS
 extra_css:
@@ -139,71 +167,4 @@ extra_javascript:
   - javascripts/mathjax.js
   - https://polyfill.io/v3/polyfill.min.js?features=es6
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
-
-# Navigation
-nav:
-  - Home: index.md
-  - Getting Started:
-    - getting-started/index.md
-    - Quick Start: getting-started/quick-start.md
-    - Installation: getting-started/installation.md
-    - Configuration: getting-started/configuration.md
-    - First Steps: getting-started/first-steps.md
-  
-  - Architecture:
-    - architecture/index.md
-    - Overview: architecture/overview.md
-    - Backend: architecture/backend.md
-    - Frontend: architecture/frontend.md
-    - Database: architecture/database.md
-    - Security: architecture/security.md
-    - Performance: architecture/performance.md
-  
-  - API Documentation:
-    - api/index.md
-    - Authentication: api/authentication.md
-    - KYC Profiles: api/kyc-profiles.md
-    - UBO Declarations: api/ubo-declarations.md
-    - PEP Declarations: api/pep-declarations.md
-    - Documents: api/documents.md
-    - Error Handling: api/error-handling.md
-  
-  - Development:
-    - development/index.md
-    - Environment Setup: development/environment-setup.md
-    - Code Style: development/code-style.md
-    - Testing: development/testing.md
-    - Contributing: development/contributing.md
-    - Debugging: development/debugging.md
-  
-  - Deployment:
-    - deployment/index.md
-    - Railway.app: deployment/railway.md
-    - Docker: deployment/docker.md
-    - Environment Variables: deployment/environment-variables.md
-    - Monitoring: deployment/monitoring.md
-    - Troubleshooting: deployment/troubleshooting.md
-  
-  - User Guide:
-    - user-guide/index.md
-    - Admin Panel: user-guide/admin-panel.md
-    - KYC Process: user-guide/kyc-process.md
-    - Document Upload: user-guide/document-upload.md
-    - Internationalization: user-guide/internationalization.md
-  
-  - Security:
-    - security/index.md
-    - Authentication: security/authentication.md
-    - Authorization: security/authorization.md
-    - Data Protection: security/data-protection.md
-    - Compliance: security/compliance.md
-    - Best Practices: security/best-practices.md
-  
-  - Reference:
-    - reference/index.md
-    - Configuration: reference/configuration.md
-    - Commands: reference/commands.md
-    - Models: reference/models.md
-    - Utilities: reference/utilities.md
-    - Changelog: reference/changelog.md
 

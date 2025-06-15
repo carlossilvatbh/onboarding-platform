@@ -1,14 +1,14 @@
-# ONBOARDING Project - English Translations
-# Copyright (C) 2025 ONBOARDING Team
-# This file is distributed under the same license as the ONBOARDING package.
+# BTS Global Bank Digital KYC Platform - English Translations
+# Generated: June 2025
+# Language: English (en)
 
 msgid ""
 msgstr ""
-"Project-Id-Version: ONBOARDING 1.0\n"
-"Report-Msgid-Bugs-To: \n"
+"Project-Id-Version: BTS ONBOARDING 1.0.0\n"
+"Report-Msgid-Bugs-To: support@btsglobalbank.com\n"
 "POT-Creation-Date: 2025-06-15 12:00+0000\n"
 "PO-Revision-Date: 2025-06-15 12:00+0000\n"
-"Last-Translator: ONBOARDING Team\n"
+"Last-Translator: BTS Development Team\n"
 "Language-Team: English\n"
 "Language: en\n"
 "MIME-Version: 1.0\n"
@@ -16,180 +16,336 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-# Status choices
-msgid "Pending"
-msgstr "Pending"
+# Common Terms
+msgid "welcome"
+msgstr "Welcome"
 
-msgid "In Review"
-msgstr "In Review"
+msgid "hello"
+msgstr "Hello"
 
-msgid "Approved"
-msgstr "Approved"
+msgid "login"
+msgstr "Login"
 
-msgid "Rejected"
-msgstr "Rejected"
+msgid "logout"
+msgstr "Logout"
 
-msgid "Requires Update"
-msgstr "Requires Update"
+msgid "dashboard"
+msgstr "Dashboard"
 
-# Model verbose names
-msgid "KYC Profile"
+msgid "profile"
+msgstr "Profile"
+
+msgid "settings"
+msgstr "Settings"
+
+msgid "save"
+msgstr "Save"
+
+msgid "cancel"
+msgstr "Cancel"
+
+msgid "submit"
+msgstr "Submit"
+
+msgid "continue"
+msgstr "Continue"
+
+msgid "back"
+msgstr "Back"
+
+msgid "next"
+msgstr "Next"
+
+msgid "previous"
+msgstr "Previous"
+
+msgid "loading"
+msgstr "Loading..."
+
+msgid "error"
+msgstr "Error"
+
+msgid "success"
+msgstr "Success"
+
+msgid "warning"
+msgstr "Warning"
+
+msgid "info"
+msgstr "Information"
+
+# KYC Related
+msgid "kyc"
+msgstr "Know Your Customer"
+
+msgid "kyc_profile"
 msgstr "KYC Profile"
 
-msgid "KYC Profiles"
-msgstr "KYC Profiles"
+msgid "kyc_verification"
+msgstr "KYC Verification"
 
-msgid "UBO Declaration"
+msgid "kyc_status"
+msgstr "KYC Status"
+
+msgid "kyc_pending"
+msgstr "Pending Verification"
+
+msgid "kyc_approved"
+msgstr "Approved"
+
+msgid "kyc_rejected"
+msgstr "Rejected"
+
+msgid "kyc_in_review"
+msgstr "Under Review"
+
+# UBO Related
+msgid "ubo"
+msgstr "Ultimate Beneficial Owner"
+
+msgid "ubo_declaration"
 msgstr "UBO Declaration"
 
-msgid "UBO Declarations"
-msgstr "UBO Declarations"
+msgid "ubo_information"
+msgstr "UBO Information"
 
-msgid "PEP Declaration"
+msgid "beneficial_owner"
+msgstr "Beneficial Owner"
+
+msgid "ownership_percentage"
+msgstr "Ownership Percentage"
+
+msgid "control_type"
+msgstr "Control Type"
+
+# PEP Related
+msgid "pep"
+msgstr "Politically Exposed Person"
+
+msgid "pep_declaration"
 msgstr "PEP Declaration"
 
-msgid "PEP Declarations"
-msgstr "PEP Declarations"
+msgid "pep_status"
+msgstr "PEP Status"
 
-msgid "KYC Document"
-msgstr "KYC Document"
+msgid "pep_screening"
+msgstr "PEP Screening"
 
-msgid "KYC Documents"
-msgstr "KYC Documents"
+msgid "politically_exposed"
+msgstr "Politically Exposed"
 
-# PEP types
-msgid "Domestic PEP"
-msgstr "Domestic PEP"
+msgid "family_member"
+msgstr "Family Member"
 
-msgid "Foreign PEP"
-msgstr "Foreign PEP"
+msgid "close_associate"
+msgstr "Close Associate"
 
-msgid "International Organization PEP"
-msgstr "International Organization PEP"
+# Documents
+msgid "documents"
+msgstr "Documents"
 
-msgid "Family Member of PEP"
-msgstr "Family Member of PEP"
+msgid "upload_documents"
+msgstr "Upload Documents"
 
-msgid "Close Associate of PEP"
-msgstr "Close Associate of PEP"
+msgid "document_verification"
+msgstr "Document Verification"
 
-# Document types
-msgid "Passport"
+msgid "identity_document"
+msgstr "Identity Document"
+
+msgid "proof_of_address"
+msgstr "Proof of Address"
+
+msgid "passport"
 msgstr "Passport"
 
-msgid "National ID"
-msgstr "National ID"
-
-msgid "Driver's License"
+msgid "drivers_license"
 msgstr "Driver's License"
 
-msgid "Utility Bill"
+msgid "national_id"
+msgstr "National ID"
+
+msgid "utility_bill"
 msgstr "Utility Bill"
 
-msgid "Bank Statement"
+msgid "bank_statement"
 msgstr "Bank Statement"
 
-msgid "Proof of Income"
-msgstr "Proof of Income"
+# Personal Information
+msgid "personal_information"
+msgstr "Personal Information"
 
-msgid "Other"
-msgstr "Other"
+msgid "first_name"
+msgstr "First Name"
 
-# Validation messages
-msgid "No UBO declarations found. At least one UBO must be declared."
-msgstr "No UBO declarations found. At least one UBO must be declared."
+msgid "last_name"
+msgstr "Last Name"
 
-msgid "Total ownership percentage cannot exceed 100%"
-msgstr "Total ownership percentage cannot exceed 100%"
+msgid "middle_name"
+msgstr "Middle Name"
 
-msgid "At least 25% ownership must be declared for UBO requirements"
-msgstr "At least 25% ownership must be declared for UBO requirements"
+msgid "date_of_birth"
+msgstr "Date of Birth"
 
-msgid "Invalid ownership percentage for {name}"
-msgstr "Invalid ownership percentage for {name}"
+msgid "nationality"
+msgstr "Nationality"
 
-msgid "UBO name cannot be empty"
-msgstr "UBO name cannot be empty"
+msgid "country_of_residence"
+msgstr "Country of Residence"
 
-msgid "Error validating UBO declarations. Please try again."
-msgstr "Error validating UBO declarations. Please try again."
+msgid "address"
+msgstr "Address"
 
-# API messages
-msgid "Profile can only be submitted when in pending status"
-msgstr "Profile can only be submitted when in pending status"
+msgid "city"
+msgstr "City"
 
-msgid "Missing required documents"
-msgstr "Missing required documents"
+msgid "state_province"
+msgstr "State/Province"
 
-msgid "Profile submitted for review successfully"
-msgstr "Profile submitted for review successfully"
+msgid "postal_code"
+msgstr "Postal Code"
 
-msgid "Error validating profile. Please try again."
-msgstr "Error validating profile. Please try again."
+msgid "country"
+msgstr "Country"
 
-msgid "Cannot create UBO for other users"
-msgstr "Cannot create UBO for other users"
+msgid "phone_number"
+msgstr "Phone Number"
 
-msgid "Total ownership percentage would exceed 100%"
-msgstr "Total ownership percentage would exceed 100%"
+msgid "email_address"
+msgstr "Email Address"
 
-msgid "Error loading PEP declarations"
-msgstr "Error loading PEP declarations"
+# Business Information
+msgid "business_information"
+msgstr "Business Information"
 
-msgid "Error generating PEP summary"
-msgstr "Error generating PEP summary"
+msgid "company_name"
+msgstr "Company Name"
 
-msgid "OCR processing completed successfully"
-msgstr "OCR processing completed successfully"
+msgid "business_type"
+msgstr "Business Type"
 
-msgid "Error processing OCR"
-msgstr "Error processing OCR"
+msgid "registration_number"
+msgstr "Registration Number"
 
-# Serializer validation messages
-msgid "Ownership percentage must be between 0 and 100"
-msgstr "Ownership percentage must be between 0 and 100"
+msgid "tax_id"
+msgstr "Tax ID"
 
-msgid "This field is required for PEP declarations"
-msgstr "This field is required for PEP declarations"
+msgid "incorporation_date"
+msgstr "Incorporation Date"
 
-msgid "End date must be after start date"
-msgstr "End date must be after start date"
+msgid "business_address"
+msgstr "Business Address"
 
-msgid "File size cannot exceed 10MB"
-msgstr "File size cannot exceed 10MB"
+# Risk Assessment
+msgid "risk_assessment"
+msgstr "Risk Assessment"
 
-msgid "File type not allowed"
-msgstr "File type not allowed"
+msgid "risk_level"
+msgstr "Risk Level"
 
-msgid "Annual income cannot be negative"
-msgstr "Annual income cannot be negative"
+msgid "low_risk"
+msgstr "Low Risk"
 
-msgid "Cannot edit other users profiles"
-msgstr "Cannot edit other users profiles"
+msgid "medium_risk"
+msgstr "Medium Risk"
 
-# Middleware messages
-msgid "Error processing UBO declarations. Please ensure all required fields are filled."
-msgstr "Error processing UBO declarations. Please ensure all required fields are filled."
+msgid "high_risk"
+msgstr "High Risk"
 
-msgid "Temporary database issue. Please try again in a moment."
-msgstr "Temporary database issue. Please try again in a moment."
+msgid "risk_factors"
+msgstr "Risk Factors"
 
-msgid "An unexpected error occurred. Please try again."
-msgstr "An unexpected error occurred. Please try again."
+msgid "compliance_check"
+msgstr "Compliance Check"
 
-msgid "Service temporarily unavailable. Please try again."
-msgstr "Service temporarily unavailable. Please try again."
+# Status Messages
+msgid "application_submitted"
+msgstr "Application submitted successfully"
 
-# Health check messages
-msgid "System is healthy"
-msgstr "System is healthy"
+msgid "verification_in_progress"
+msgstr "Verification in progress"
 
-msgid "Database connection successful"
-msgstr "Database connection successful"
+msgid "additional_info_required"
+msgstr "Additional information required"
 
-msgid "Cache connection successful"
-msgstr "Cache connection successful"
+msgid "documents_uploaded"
+msgstr "Documents uploaded successfully"
 
-msgid "All systems operational"
-msgstr "All systems operational"
+msgid "profile_updated"
+msgstr "Profile updated successfully"
+
+# Error Messages
+msgid "invalid_credentials"
+msgstr "Invalid credentials. Please try again."
+
+msgid "session_expired"
+msgstr "Your session has expired. Please log in again."
+
+msgid "upload_failed"
+msgstr "File upload failed. Please try again."
+
+msgid "invalid_file_format"
+msgstr "Invalid file format. Please upload a valid document."
+
+msgid "file_too_large"
+msgstr "File size too large. Maximum size is 10MB."
+
+msgid "required_field"
+msgstr "This field is required"
+
+msgid "invalid_email"
+msgstr "Please enter a valid email address"
+
+msgid "invalid_phone"
+msgstr "Please enter a valid phone number"
+
+# Navigation
+msgid "home"
+msgstr "Home"
+
+msgid "about"
+msgstr "About"
+
+msgid "contact"
+msgstr "Contact"
+
+msgid "help"
+msgstr "Help"
+
+msgid "support"
+msgstr "Support"
+
+msgid "privacy_policy"
+msgstr "Privacy Policy"
+
+msgid "terms_of_service"
+msgstr "Terms of Service"
+
+msgid "security"
+msgstr "Security"
+
+# BTS Specific
+msgid "bts_global_bank"
+msgstr "BTS Global Bank"
+
+msgid "be_anywhere"
+msgstr "be anywhere"
+
+msgid "digital_kyc_platform"
+msgstr "Digital KYC Platform"
+
+msgid "secure_banking"
+msgstr "Secure Banking"
+
+msgid "global_compliance"
+msgstr "Global Compliance"
+
+msgid "onboarding_process"
+msgstr "Onboarding Process"
+
+msgid "customer_verification"
+msgstr "Customer Verification"
+
+msgid "regulatory_compliance"
+msgstr "Regulatory Compliance"
 
