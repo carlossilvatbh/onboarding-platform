@@ -1,0 +1,87 @@
+version: 2
+
+updates:
+  # Python dependencies
+  - package-ecosystem: "pip"
+    directory: "/backend"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "onboarding-team"
+    assignees:
+      - "onboarding-team"
+    commit-message:
+      prefix: "deps"
+      prefix-development: "deps-dev"
+      include: "scope"
+    labels:
+      - "dependencies"
+      - "python"
+    
+    # Ignore specific packages that require manual updates
+    ignore:
+      - dependency-name: "django"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "celery"
+        update-types: ["version-update:semver-major"]
+    
+    # Group related updates
+    groups:
+      django-ecosystem:
+        patterns:
+          - "django*"
+          - "djangorestframework*"
+        
+      testing:
+        patterns:
+          - "pytest*"
+          - "coverage*"
+          - "factory-boy*"
+        
+      security:
+        patterns:
+          - "cryptography*"
+          - "pyjwt*"
+          - "requests*"
+
+  # GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 3
+    reviewers:
+      - "onboarding-team"
+    assignees:
+      - "onboarding-team"
+    commit-message:
+      prefix: "ci"
+      include: "scope"
+    labels:
+      - "dependencies"
+      - "github-actions"
+
+  # Docker
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 2
+    reviewers:
+      - "onboarding-team"
+    assignees:
+      - "onboarding-team"
+    commit-message:
+      prefix: "docker"
+      include: "scope"
+    labels:
+      - "dependencies"
+      - "docker"
+

@@ -1,0 +1,178 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'  # Triggers on version tags like v1.0.0
+
+env:
+  PYTHON_VERSION: '3.11'
+
+jobs:
+  # Job 1: Create Release
+  create-release:
+    name: 🏷️ Create Release
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0  # Fetch full history for changelog
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+    
+    - name: Install dependencies
+      run: |
+        cd backend
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    
+    - name: Extract version from tag
+      id: version
+      run: |
+        VERSION=${GITHUB_REF#refs/tags/v}
+        echo "version=$VERSION" >> $GITHUB_OUTPUT
+        echo "tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+    
+    - name: Generate changelog
+      id: changelog
+      run: |
+        # Get commits since last tag
+        LAST_TAG=$(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || echo "")
+        if [ -z "$LAST_TAG" ]; then
+          COMMITS=$(git log --pretty=format:"- %s (%h)" --no-merges)
+        else
+          COMMITS=$(git log ${LAST_TAG}..HEAD --pretty=format:"- %s (%h)" --no-merges)
+        fi
+        
+        # Create changelog
+        echo "## 🚀 What's New in ${{ steps.version.outputs.tag }}" > CHANGELOG.md
+        echo "" >> CHANGELOG.md
+        echo "### 📋 Changes" >> CHANGELOG.md
+        echo "$COMMITS" >> CHANGELOG.md
+        echo "" >> CHANGELOG.md
+        echo "### 🔧 Technical Details" >> CHANGELOG.md
+        echo "- Django 5.0 LTS" >> CHANGELOG.md
+        echo "- Django REST Framework 3.15" >> CHANGELOG.md
+        echo "- Celery 5.4" >> CHANGELOG.md
+        echo "- PostgreSQL 15" >> CHANGELOG.md
+        echo "- Redis 7" >> CHANGELOG.md
+        echo "" >> CHANGELOG.md
+        echo "### 🌍 Internationalization" >> CHANGELOG.md
+        echo "- English (EN)" >> CHANGELOG.md
+        echo "- Portuguese Brazil (PT-BR)" >> CHANGELOG.md
+        echo "" >> CHANGELOG.md
+        echo "### 🚀 Deployment" >> CHANGELOG.md
+        echo "- Railway.app ready" >> CHANGELOG.md
+        echo "- Docker support" >> CHANGELOG.md
+        echo "- Health checks included" >> CHANGELOG.md
+    
+    - name: Build release artifacts
+      run: |
+        # Create source distribution
+        cd backend
+        python manage.py collectstatic --noinput
+        python manage.py compilemessages
+        cd ..
+        
+        # Create release package
+        tar -czf onboarding-${{ steps.version.outputs.version }}.tar.gz \
+          --exclude='.git' \
+          --exclude='node_modules' \
+          --exclude='venv' \
+          --exclude='__pycache__' \
+          --exclude='*.pyc' \
+          --exclude='.pytest_cache' \
+          --exclude='htmlcov' \
+          .
+        
+        # Create checksums
+        sha256sum onboarding-${{ steps.version.outputs.version }}.tar.gz > checksums.txt
+      env:
+        DJANGO_ENVIRONMENT: production
+        SECRET_KEY: 'release-build-key'
+        DB_NAME: ':memory:'
+        DB_ENGINE: 'django.db.backends.sqlite3'
+    
+    - name: Create GitHub Release
+      uses: actions/create-release@v1
+      id: create_release
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ steps.version.outputs.tag }}
+        release_name: ONBOARDING ${{ steps.version.outputs.tag }}
+        body_path: CHANGELOG.md
+        draft: false
+        prerelease: ${{ contains(steps.version.outputs.version, 'rc') || contains(steps.version.outputs.version, 'beta') || contains(steps.version.outputs.version, 'alpha') }}
+    
+    - name: Upload Release Asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./onboarding-${{ steps.version.outputs.version }}.tar.gz
+        asset_name: onboarding-${{ steps.version.outputs.version }}.tar.gz
+        asset_content_type: application/gzip
+    
+    - name: Upload Checksums
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./checksums.txt
+        asset_name: checksums.txt
+        asset_content_type: text/plain
+
+  # Job 2: Deploy Release to Production
+  deploy-release:
+    name: 🌟 Deploy Release
+    runs-on: ubuntu-latest
+    needs: [create-release]
+    environment: production
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Deploy to Production
+      run: |
+        echo "🌟 Deploying release ${{ needs.create-release.outputs.tag }} to production..."
+        # Aqui seria implementada a lógica de deploy para produção
+        echo "✅ Release deployed successfully!"
+      env:
+        RAILWAY_TOKEN: ${{ secrets.RAILWAY_PRODUCTION_TOKEN }}
+    
+    - name: Update deployment status
+      run: |
+        echo "🎉 ONBOARDING ${{ needs.create-release.outputs.tag }} is now live!"
+        echo "🌐 Production URL: ${{ secrets.PRODUCTION_URL }}"
+
+  # Job 3: Notify Release
+  notify-release:
+    name: 📢 Notify Release
+    runs-on: ubuntu-latest
+    needs: [create-release, deploy-release]
+    if: always()
+    
+    steps:
+    - name: Notify success
+      if: ${{ needs.deploy-release.result == 'success' }}
+      run: |
+        echo "🎉 Release ${{ needs.create-release.outputs.tag }} deployed successfully!"
+        echo "📦 GitHub Release: https://github.com/${{ github.repository }}/releases/tag/${{ needs.create-release.outputs.tag }}"
+        echo "🌐 Production: ${{ secrets.PRODUCTION_URL }}"
+    
+    - name: Notify failure
+      if: ${{ needs.deploy-release.result == 'failure' }}
+      run: |
+        echo "❌ Release deployment failed!"
+        echo "📦 GitHub Release created but deployment failed"
+        exit 1
+

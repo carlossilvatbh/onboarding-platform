@@ -1,0 +1,43 @@
+# Dockerfile para desenvolvimento
+FROM python:3.11-slim
+
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+ENV DJANGO_ENVIRONMENT=development
+
+# Set work directory
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+        postgresql-client \
+        build-essential \
+        libpq-dev \
+        gettext \
+        curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Python dependencies
+COPY backend/requirements.txt /app/backend/
+RUN pip install --upgrade pip
+RUN pip install -r backend/requirements.txt
+
+# Copy project
+COPY . /app/
+
+# Create directories
+RUN mkdir -p /app/backend/staticfiles
+RUN mkdir -p /app/backend/media
+RUN mkdir -p /app/backend/logs
+
+# Make manage.py executable
+RUN chmod +x /app/backend/manage.py
+
+# Expose port
+EXPOSE 8000
+
+# Default command
+CMD ["python", "backend/manage.py", "runserver", "0.0.0.0:8000"]
+

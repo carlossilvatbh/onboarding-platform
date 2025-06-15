@@ -1,0 +1,195 @@
+# ONBOARDING Project - Traduções em Português Brasileiro
+# Copyright (C) 2025 Equipe ONBOARDING
+# Este arquivo é distribuído sob a mesma licença do pacote ONBOARDING.
+
+msgid ""
+msgstr ""
+"Project-Id-Version: ONBOARDING 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-06-15 12:00+0000\n"
+"PO-Revision-Date: 2025-06-15 12:00+0000\n"
+"Last-Translator: Equipe ONBOARDING\n"
+"Language-Team: Português Brasileiro\n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+# Status choices
+msgid "Pending"
+msgstr "Pendente"
+
+msgid "In Review"
+msgstr "Em Análise"
+
+msgid "Approved"
+msgstr "Aprovado"
+
+msgid "Rejected"
+msgstr "Rejeitado"
+
+msgid "Requires Update"
+msgstr "Requer Atualização"
+
+# Model verbose names
+msgid "KYC Profile"
+msgstr "Perfil KYC"
+
+msgid "KYC Profiles"
+msgstr "Perfis KYC"
+
+msgid "UBO Declaration"
+msgstr "Declaração UBO"
+
+msgid "UBO Declarations"
+msgstr "Declarações UBO"
+
+msgid "PEP Declaration"
+msgstr "Declaração PEP"
+
+msgid "PEP Declarations"
+msgstr "Declarações PEP"
+
+msgid "KYC Document"
+msgstr "Documento KYC"
+
+msgid "KYC Documents"
+msgstr "Documentos KYC"
+
+# PEP types
+msgid "Domestic PEP"
+msgstr "PEP Nacional"
+
+msgid "Foreign PEP"
+msgstr "PEP Estrangeiro"
+
+msgid "International Organization PEP"
+msgstr "PEP de Organização Internacional"
+
+msgid "Family Member of PEP"
+msgstr "Familiar de PEP"
+
+msgid "Close Associate of PEP"
+msgstr "Associado Próximo de PEP"
+
+# Document types
+msgid "Passport"
+msgstr "Passaporte"
+
+msgid "National ID"
+msgstr "RG"
+
+msgid "Driver's License"
+msgstr "CNH"
+
+msgid "Utility Bill"
+msgstr "Conta de Luz/Água"
+
+msgid "Bank Statement"
+msgstr "Extrato Bancário"
+
+msgid "Proof of Income"
+msgstr "Comprovante de Renda"
+
+msgid "Other"
+msgstr "Outro"
+
+# Validation messages
+msgid "No UBO declarations found. At least one UBO must be declared."
+msgstr "Nenhuma declaração UBO encontrada. Pelo menos um UBO deve ser declarado."
+
+msgid "Total ownership percentage cannot exceed 100%"
+msgstr "O percentual total de propriedade não pode exceder 100%"
+
+msgid "At least 25% ownership must be declared for UBO requirements"
+msgstr "Pelo menos 25% de propriedade deve ser declarado para requisitos UBO"
+
+msgid "Invalid ownership percentage for {name}"
+msgstr "Percentual de propriedade inválido para {name}"
+
+msgid "UBO name cannot be empty"
+msgstr "O nome do UBO não pode estar vazio"
+
+msgid "Error validating UBO declarations. Please try again."
+msgstr "Erro ao validar declarações UBO. Tente novamente."
+
+# API messages
+msgid "Profile can only be submitted when in pending status"
+msgstr "O perfil só pode ser submetido quando estiver com status pendente"
+
+msgid "Missing required documents"
+msgstr "Documentos obrigatórios ausentes"
+
+msgid "Profile submitted for review successfully"
+msgstr "Perfil submetido para análise com sucesso"
+
+msgid "Error validating profile. Please try again."
+msgstr "Erro ao validar perfil. Tente novamente."
+
+msgid "Cannot create UBO for other users"
+msgstr "Não é possível criar UBO para outros usuários"
+
+msgid "Total ownership percentage would exceed 100%"
+msgstr "O percentual total de propriedade excederia 100%"
+
+msgid "Error loading PEP declarations"
+msgstr "Erro ao carregar declarações PEP"
+
+msgid "Error generating PEP summary"
+msgstr "Erro ao gerar resumo PEP"
+
+msgid "OCR processing completed successfully"
+msgstr "Processamento OCR concluído com sucesso"
+
+msgid "Error processing OCR"
+msgstr "Erro ao processar OCR"
+
+# Serializer validation messages
+msgid "Ownership percentage must be between 0 and 100"
+msgstr "O percentual de propriedade deve estar entre 0 e 100"
+
+msgid "This field is required for PEP declarations"
+msgstr "Este campo é obrigatório para declarações PEP"
+
+msgid "End date must be after start date"
+msgstr "A data final deve ser posterior à data inicial"
+
+msgid "File size cannot exceed 10MB"
+msgstr "O tamanho do arquivo não pode exceder 10MB"
+
+msgid "File type not allowed"
+msgstr "Tipo de arquivo não permitido"
+
+msgid "Annual income cannot be negative"
+msgstr "A renda anual não pode ser negativa"
+
+msgid "Cannot edit other users profiles"
+msgstr "Não é possível editar perfis de outros usuários"
+
+# Middleware messages
+msgid "Error processing UBO declarations. Please ensure all required fields are filled."
+msgstr "Erro ao processar declarações UBO. Certifique-se de que todos os campos obrigatórios estão preenchidos."
+
+msgid "Temporary database issue. Please try again in a moment."
+msgstr "Problema temporário no banco de dados. Tente novamente em alguns instantes."
+
+msgid "An unexpected error occurred. Please try again."
+msgstr "Ocorreu um erro inesperado. Tente novamente."
+
+msgid "Service temporarily unavailable. Please try again."
+msgstr "Serviço temporariamente indisponível. Tente novamente."
+
+# Health check messages
+msgid "System is healthy"
+msgstr "Sistema funcionando normalmente"
+
+msgid "Database connection successful"
+msgstr "Conexão com banco de dados bem-sucedida"
+
+msgid "Cache connection successful"
+msgstr "Conexão com cache bem-sucedida"
+
+msgid "All systems operational"
+msgstr "Todos os sistemas operacionais"
+

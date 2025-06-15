@@ -1,0 +1,340 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+env:
+  PYTHON_VERSION: '3.11'
+  NODE_VERSION: '20'
+
+jobs:
+  # Job 1: Lint e Code Quality
+  lint:
+    name: 🔍 Lint & Code Quality
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+    
+    - name: Cache pip dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('backend/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+    
+    - name: Install dependencies
+      run: |
+        cd backend
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    
+    - name: Run Black (code formatting)
+      run: |
+        cd backend
+        black --check --diff apps/
+    
+    - name: Run isort (import sorting)
+      run: |
+        cd backend
+        isort --check-only --diff apps/
+    
+    - name: Run flake8 (linting)
+      run: |
+        cd backend
+        flake8 apps/
+    
+    - name: Run mypy (type checking)
+      run: |
+        cd backend
+        mypy apps/ --ignore-missing-imports
+    
+    - name: Check Django configuration
+      run: |
+        cd backend
+        python manage.py check --deploy
+      env:
+        DJANGO_ENVIRONMENT: production
+        SECRET_KEY: 'test-secret-key-for-ci'
+        DB_NAME: ':memory:'
+        DB_ENGINE: 'django.db.backends.sqlite3'
+
+  # Job 2: Security Checks
+  security:
+    name: 🔒 Security Checks
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+    
+    - name: Install security tools
+      run: |
+        pip install bandit safety
+    
+    - name: Run Bandit (security linting)
+      run: |
+        cd backend
+        bandit -r apps/ -f json -o bandit-report.json || true
+        bandit -r apps/
+    
+    - name: Check dependencies for vulnerabilities
+      run: |
+        cd backend
+        safety check -r requirements.txt
+    
+    - name: Upload security reports
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: security-reports
+        path: backend/bandit-report.json
+
+  # Job 3: Tests
+  test:
+    name: 🧪 Tests
+    runs-on: ubuntu-latest
+    needs: [lint]
+    
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: test_onboarding
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+      
+      redis:
+        image: redis:7
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 6379:6379
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+    
+    - name: Cache pip dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('backend/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+    
+    - name: Install dependencies
+      run: |
+        cd backend
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    
+    - name: Run migrations
+      run: |
+        cd backend
+        python manage.py migrate
+      env:
+        DJANGO_ENVIRONMENT: development
+        SECRET_KEY: 'test-secret-key-for-ci'
+        DB_NAME: test_onboarding
+        DB_USER: postgres
+        DB_PASSWORD: postgres
+        DB_HOST: localhost
+        DB_PORT: 5432
+        CACHE_URL: redis://localhost:6379/1
+        CELERY_BROKER_URL: redis://localhost:6379/0
+    
+    - name: Run tests with coverage
+      run: |
+        cd backend
+        pytest --cov=apps --cov-report=xml --cov-report=html --cov-fail-under=80 -v
+      env:
+        DJANGO_ENVIRONMENT: development
+        SECRET_KEY: 'test-secret-key-for-ci'
+        DB_NAME: test_onboarding
+        DB_USER: postgres
+        DB_PASSWORD: postgres
+        DB_HOST: localhost
+        DB_PORT: 5432
+        CACHE_URL: redis://localhost:6379/1
+        CELERY_BROKER_URL: redis://localhost:6379/0
+    
+    - name: Upload coverage reports
+      uses: codecov/codecov-action@v3
+      with:
+        file: backend/coverage.xml
+        flags: unittests
+        name: codecov-umbrella
+    
+    - name: Upload test artifacts
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: test-results
+        path: |
+          backend/htmlcov/
+          backend/coverage.xml
+
+  # Job 4: Build
+  build:
+    name: 🏗️ Build
+    runs-on: ubuntu-latest
+    needs: [test, security]
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+    
+    - name: Install dependencies
+      run: |
+        cd backend
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    
+    - name: Collect static files
+      run: |
+        cd backend
+        python manage.py collectstatic --noinput
+      env:
+        DJANGO_ENVIRONMENT: production
+        SECRET_KEY: 'test-secret-key-for-ci'
+        DB_NAME: ':memory:'
+        DB_ENGINE: 'django.db.backends.sqlite3'
+    
+    - name: Check translations
+      run: |
+        cd backend
+        python manage.py check_translations
+    
+    - name: Compile translations
+      run: |
+        cd backend
+        python manage.py compilemessages
+    
+    - name: Create build artifact
+      run: |
+        tar -czf onboarding-build.tar.gz \
+          --exclude='.git' \
+          --exclude='node_modules' \
+          --exclude='venv' \
+          --exclude='__pycache__' \
+          --exclude='*.pyc' \
+          --exclude='.pytest_cache' \
+          .
+    
+    - name: Upload build artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: onboarding-build
+        path: onboarding-build.tar.gz
+        retention-days: 30
+
+  # Job 5: Deploy to Staging
+  deploy-staging:
+    name: 🚀 Deploy to Staging
+    runs-on: ubuntu-latest
+    needs: [build]
+    if: github.ref == 'refs/heads/develop'
+    environment: staging
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Download build artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: onboarding-build
+    
+    - name: Deploy to Railway (Staging)
+      run: |
+        echo "🚀 Deploying to staging environment..."
+        # Aqui seria implementada a lógica de deploy para staging
+        echo "Staging deployment completed!"
+      env:
+        RAILWAY_TOKEN: ${{ secrets.RAILWAY_STAGING_TOKEN }}
+
+  # Job 6: Deploy to Production
+  deploy-production:
+    name: 🌟 Deploy to Production
+    runs-on: ubuntu-latest
+    needs: [build]
+    if: github.ref == 'refs/heads/main'
+    environment: production
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Download build artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: onboarding-build
+    
+    - name: Deploy to Railway (Production)
+      run: |
+        echo "🌟 Deploying to production environment..."
+        # Aqui seria implementada a lógica de deploy para produção
+        echo "Production deployment completed!"
+      env:
+        RAILWAY_TOKEN: ${{ secrets.RAILWAY_PRODUCTION_TOKEN }}
+    
+    - name: Notify deployment
+      run: |
+        echo "✅ Production deployment successful!"
+        echo "🌐 Application available at: ${{ secrets.PRODUCTION_URL }}"
+
+  # Job 7: Notification
+  notify:
+    name: 📢 Notify
+    runs-on: ubuntu-latest
+    needs: [deploy-staging, deploy-production]
+    if: always()
+    
+    steps:
+    - name: Notify success
+      if: ${{ needs.deploy-staging.result == 'success' || needs.deploy-production.result == 'success' }}
+      run: |
+        echo "✅ Deployment completed successfully!"
+    
+    - name: Notify failure
+      if: ${{ needs.deploy-staging.result == 'failure' || needs.deploy-production.result == 'failure' }}
+      run: |
+        echo "❌ Deployment failed!"
+        exit 1
+

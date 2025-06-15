@@ -1,0 +1,71 @@
+# Configuração nixpacks otimizada para Railway.app
+# CORREÇÃO: Resolve problemas de build e collectstatic identificados
+
+[phases.setup]
+nixPkgs = [
+    "python311",
+    "postgresql_15", 
+    "redis",
+    "nodejs_20",
+    "git",
+    "curl",
+    "gcc",
+    "pkg-config",
+    "libpq-dev",
+    "python311Packages.pip",
+    "python311Packages.setuptools",
+    "python311Packages.wheel"
+]
+
+[phases.install]
+dependsOn = ["setup"]
+cmds = [
+    "echo 'Installing Python dependencies...'",
+    "cd backend",
+    "pip install --upgrade pip setuptools wheel",
+    "pip install --no-cache-dir -r requirements.txt",
+    "echo 'Dependencies installed successfully'"
+]
+
+[phases.build]
+dependsOn = ["install"]
+cmds = [
+    "echo 'Building application...'",
+    "cd backend",
+    "echo 'Creating necessary directories...'",
+    "mkdir -p staticfiles media logs",
+    "echo 'Running Django checks...'",
+    "python manage.py check --deploy",
+    "echo 'Collecting static files...'",
+    "python manage.py collectstatic --noinput --clear --verbosity=2",
+    "echo 'Running migrations...'",
+    "python manage.py migrate --noinput",
+    "echo 'Build completed successfully'"
+]
+
+[start]
+cmd = "cd backend && gunicorn config.wsgi:application --bind 0.0.0.0:$PORT --workers 3 --worker-class gthread --threads 2 --timeout 120 --keep-alive 2 --max-requests 1000 --max-requests-jitter 50 --preload --access-logfile - --error-logfile -"
+
+[variables]
+# Django settings
+DJANGO_ENVIRONMENT = "production"
+PYTHONPATH = "/app/backend"
+PYTHONUNBUFFERED = "1"
+PYTHONDONTWRITEBYTECODE = "1"
+
+# Build settings
+PIP_NO_CACHE_DIR = "1"
+PIP_DISABLE_PIP_VERSION_CHECK = "1"
+
+# Static files
+STATIC_ROOT = "/app/backend/staticfiles"
+MEDIA_ROOT = "/app/backend/media"
+
+# Security
+SECURE_SSL_REDIRECT = "True"
+SECURE_PROXY_SSL_HEADER = "HTTP_X_FORWARDED_PROTO,https"
+
+[staticFiles]
+# Configuração para servir arquivos estáticos
+publicDir = "backend/staticfiles"
+

@@ -1,0 +1,41 @@
+{
+  "$schema": "https://railway.app/railway.schema.json",
+  "build": {
+    "builder": "nixpacks",
+    "buildCommand": "cd backend && pip install -r requirements.txt && python manage.py collectstatic --noinput"
+  },
+  "deploy": {
+    "startCommand": "cd backend && gunicorn config.wsgi:application --bind 0.0.0.0:$PORT --workers 3 --timeout 120",
+    "healthcheckPath": "/healthz",
+    "healthcheckTimeout": 300,
+    "restartPolicyType": "ON_FAILURE",
+    "restartPolicyMaxRetries": 3
+  },
+  "environments": {
+    "production": {
+      "variables": {
+        "DJANGO_ENVIRONMENT": "production",
+        "PYTHONPATH": "/app/backend",
+        "PYTHONUNBUFFERED": "1",
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "STATIC_ROOT": "/app/backend/staticfiles",
+        "MEDIA_ROOT": "/app/backend/media"
+      }
+    }
+  },
+  "volumes": [
+    {
+      "name": "staticfiles",
+      "mountPath": "/app/backend/staticfiles"
+    },
+    {
+      "name": "media",
+      "mountPath": "/app/backend/media"
+    },
+    {
+      "name": "logs",
+      "mountPath": "/app/backend/logs"
+    }
+  ]
+}
+

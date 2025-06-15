@@ -1,0 +1,195 @@
+# ONBOARDING Project - English Translations
+# Copyright (C) 2025 ONBOARDING Team
+# This file is distributed under the same license as the ONBOARDING package.
+
+msgid ""
+msgstr ""
+"Project-Id-Version: ONBOARDING 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-06-15 12:00+0000\n"
+"PO-Revision-Date: 2025-06-15 12:00+0000\n"
+"Last-Translator: ONBOARDING Team\n"
+"Language-Team: English\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+# Status choices
+msgid "Pending"
+msgstr "Pending"
+
+msgid "In Review"
+msgstr "In Review"
+
+msgid "Approved"
+msgstr "Approved"
+
+msgid "Rejected"
+msgstr "Rejected"
+
+msgid "Requires Update"
+msgstr "Requires Update"
+
+# Model verbose names
+msgid "KYC Profile"
+msgstr "KYC Profile"
+
+msgid "KYC Profiles"
+msgstr "KYC Profiles"
+
+msgid "UBO Declaration"
+msgstr "UBO Declaration"
+
+msgid "UBO Declarations"
+msgstr "UBO Declarations"
+
+msgid "PEP Declaration"
+msgstr "PEP Declaration"
+
+msgid "PEP Declarations"
+msgstr "PEP Declarations"
+
+msgid "KYC Document"
+msgstr "KYC Document"
+
+msgid "KYC Documents"
+msgstr "KYC Documents"
+
+# PEP types
+msgid "Domestic PEP"
+msgstr "Domestic PEP"
+
+msgid "Foreign PEP"
+msgstr "Foreign PEP"
+
+msgid "International Organization PEP"
+msgstr "International Organization PEP"
+
+msgid "Family Member of PEP"
+msgstr "Family Member of PEP"
+
+msgid "Close Associate of PEP"
+msgstr "Close Associate of PEP"
+
+# Document types
+msgid "Passport"
+msgstr "Passport"
+
+msgid "National ID"
+msgstr "National ID"
+
+msgid "Driver's License"
+msgstr "Driver's License"
+
+msgid "Utility Bill"
+msgstr "Utility Bill"
+
+msgid "Bank Statement"
+msgstr "Bank Statement"
+
+msgid "Proof of Income"
+msgstr "Proof of Income"
+
+msgid "Other"
+msgstr "Other"
+
+# Validation messages
+msgid "No UBO declarations found. At least one UBO must be declared."
+msgstr "No UBO declarations found. At least one UBO must be declared."
+
+msgid "Total ownership percentage cannot exceed 100%"
+msgstr "Total ownership percentage cannot exceed 100%"
+
+msgid "At least 25% ownership must be declared for UBO requirements"
+msgstr "At least 25% ownership must be declared for UBO requirements"
+
+msgid "Invalid ownership percentage for {name}"
+msgstr "Invalid ownership percentage for {name}"
+
+msgid "UBO name cannot be empty"
+msgstr "UBO name cannot be empty"
+
+msgid "Error validating UBO declarations. Please try again."
+msgstr "Error validating UBO declarations. Please try again."
+
+# API messages
+msgid "Profile can only be submitted when in pending status"
+msgstr "Profile can only be submitted when in pending status"
+
+msgid "Missing required documents"
+msgstr "Missing required documents"
+
+msgid "Profile submitted for review successfully"
+msgstr "Profile submitted for review successfully"
+
+msgid "Error validating profile. Please try again."
+msgstr "Error validating profile. Please try again."
+
+msgid "Cannot create UBO for other users"
+msgstr "Cannot create UBO for other users"
+
+msgid "Total ownership percentage would exceed 100%"
+msgstr "Total ownership percentage would exceed 100%"
+
+msgid "Error loading PEP declarations"
+msgstr "Error loading PEP declarations"
+
+msgid "Error generating PEP summary"
+msgstr "Error generating PEP summary"
+
+msgid "OCR processing completed successfully"
+msgstr "OCR processing completed successfully"
+
+msgid "Error processing OCR"
+msgstr "Error processing OCR"
+
+# Serializer validation messages
+msgid "Ownership percentage must be between 0 and 100"
+msgstr "Ownership percentage must be between 0 and 100"
+
+msgid "This field is required for PEP declarations"
+msgstr "This field is required for PEP declarations"
+
+msgid "End date must be after start date"
+msgstr "End date must be after start date"
+
+msgid "File size cannot exceed 10MB"
+msgstr "File size cannot exceed 10MB"
+
+msgid "File type not allowed"
+msgstr "File type not allowed"
+
+msgid "Annual income cannot be negative"
+msgstr "Annual income cannot be negative"
+
+msgid "Cannot edit other users profiles"
+msgstr "Cannot edit other users profiles"
+
+# Middleware messages
+msgid "Error processing UBO declarations. Please ensure all required fields are filled."
+msgstr "Error processing UBO declarations. Please ensure all required fields are filled."
+
+msgid "Temporary database issue. Please try again in a moment."
+msgstr "Temporary database issue. Please try again in a moment."
+
+msgid "An unexpected error occurred. Please try again."
+msgstr "An unexpected error occurred. Please try again."
+
+msgid "Service temporarily unavailable. Please try again."
+msgstr "Service temporarily unavailable. Please try again."
+
+# Health check messages
+msgid "System is healthy"
+msgstr "System is healthy"
+
+msgid "Database connection successful"
+msgstr "Database connection successful"
+
+msgid "Cache connection successful"
+msgstr "Cache connection successful"
+
+msgid "All systems operational"
+msgstr "All systems operational"
+
