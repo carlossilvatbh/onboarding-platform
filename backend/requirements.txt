@@ -60,7 +60,7 @@ gunicorn==22.0.0
 whitenoise==6.7.0
 
 # Utilities
-requests==2.32.3
+requests==2.32.4
 python-dateutil==2.9.0.post0
 pytz==2024.1
 openpyxl==3.1.5
@@ -93,5 +93,5 @@ numpy==2.0.0
 pytesseract==0.3.10
 
 # Cryptography
-cryptography==42.0.8
+cryptography==45.0.4
 
